@@ -1,6 +1,6 @@
 # IP-Whitelist
  
-Nejlepší způsob jak zablokovat přístup Moonovi a jeho fanouškům na vás minecraftový server.
+Nejlepší způsob jak zablokovat přístup Moonovi a jeho fanouškům na váš minecraftový server.
 
 ## Použití
 Syntax: ipwhitelist <add, remove> <ip>
