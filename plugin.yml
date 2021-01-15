@@ -1,0 +1,7 @@
+name: IP-Whitelist
+author: sqlskid
+version: 1.0
+main: cf.sqlskid.ipwhitelist.IPWhitelist
+commands:
+  ipwhitelist:
+    aliases: ipwl
