@@ -6,7 +6,7 @@ Nejlepší způsob jak zablokovat přístup Moonovi a jeho fanouškům na váš 
 Stačí to hodit do složky plugins ve složce kde máte minecraft server.
 
 ## Použití
-Syntax: ipwhitelist <add, remove> <nick>
+Syntax: ipwhitelist <add, remove> nick
  
 Ten příkaz jde použít jen v konzoli.
  
