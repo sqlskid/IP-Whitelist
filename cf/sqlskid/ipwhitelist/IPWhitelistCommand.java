@@ -1,10 +1,13 @@
 package cf.sqlskid.ipwhitelist;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.UUID;
 
 public class IPWhitelistCommand implements CommandExecutor {
 
@@ -15,25 +18,23 @@ public class IPWhitelistCommand implements CommandExecutor {
             return false;
         } else {
             if (strings.length == 2) {
-                if (strings[0].equalsIgnoreCase("add")) {
-                    if(IPWhitelist.instance.IPAdresy.contains(strings[1]))
-                        return false;
-                    IPWhitelist.instance.IPAdresy.add(strings[1]);
-                    commandSender.sendMessage(ChatColor.GREEN + "IP Adresa " + strings[1] + " byla pridana na whitelist!");
-                    return true;
-                } else if (strings[0].equalsIgnoreCase("remove")) {
-                    if(!IPWhitelist.instance.IPAdresy.contains(strings[1]))
-                        return false;
-                    IPWhitelist.instance.IPAdresy.remove(strings[1]);
-                    commandSender.sendMessage(ChatColor.GREEN + "IP Adresa " + strings[1] + " byla odebrana z whitelistu!");
-                    return true;
-                }
-                else {
-                    commandSender.sendMessage(ChatColor.RED + "Pouzij: /ipwhitelist <add, remove> <IP>");
-                    return true;
+                switch (strings[0].toLowerCase()) {
+                    case "add":
+                        if (!IPWhitelist.instance.allowedPlayers.contains(strings[1])) {
+                            IPWhitelist.instance.allowedPlayers.add(strings[1]);
+                            commandSender.sendMessage(ChatColor.GREEN + "Hrac " + strings[1] + " byl pridan na IP Whitelist!");
+                        }
+                        break;
+                    case "remove":
+                        UUID uuid = Bukkit.getOfflinePlayerIfCached(strings[1]).getUniqueId();
+                        if (IPWhitelist.instance.IPAdresy.containsKey(uuid)) {
+                            IPWhitelist.instance.IPAdresy.remove(uuid);
+                        }
+                        break;
                 }
             } else {
                 commandSender.sendMessage(ChatColor.RED + "Pouzij: /ipwhitelist <add, remove> <IP>");
+                return true;
             }
         }
         return false;

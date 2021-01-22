@@ -5,21 +5,25 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 
 public class IPWhitelist extends JavaPlugin {
 
     public static IPWhitelist instance;
-    public ArrayList<String> IPAdresy = new ArrayList<>();
+    public HashMap<UUID, String> IPAdresy = new HashMap<>();
+
+    public ArrayList<String> allowedPlayers = new ArrayList<>();
+
 
     private File dataFile = new File("main.dat");
 
     @Override
-    public void onEnable(){
+    public void onEnable() {
         instance = this;
 
-        if(!dataFile.exists())
-        {
+        if (!dataFile.exists()) {
             try {
                 dataFile.createNewFile();
             } catch (IOException e) {
@@ -42,7 +46,7 @@ public class IPWhitelist extends JavaPlugin {
 
 
     @Override
-    public void onDisable(){
+    public void onDisable() {
         try {
             save(dataFile.getName());
         } catch (IOException e) {
@@ -51,19 +55,18 @@ public class IPWhitelist extends JavaPlugin {
     }
 
     public void save(String fileName) throws IOException {
-        FileOutputStream fout= new FileOutputStream (fileName);
+        FileOutputStream fout = new FileOutputStream(fileName);
         ObjectOutputStream oos = new ObjectOutputStream(fout);
         oos.writeObject(IPAdresy);
         fout.close();
     }
 
     public void read(String fileName) throws IOException, ClassNotFoundException {
-        FileInputStream fin= new FileInputStream (fileName);
+        FileInputStream fin = new FileInputStream(fileName);
         ObjectInputStream ois = new ObjectInputStream(fin);
-        IPAdresy = (ArrayList<String>)ois.readObject();
+        IPAdresy = (HashMap<UUID, String>) ois.readObject();
         fin.close();
     }
-
 
 
 }
