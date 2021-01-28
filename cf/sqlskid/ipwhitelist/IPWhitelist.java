@@ -24,7 +24,7 @@ public class IPWhitelist extends JavaPlugin {
         instance = this;
 
         Bukkit.getServer().setWhitelist(false);
-        
+
         if (!dataFile.exists()) {
             try {
                 dataFile.createNewFile();
